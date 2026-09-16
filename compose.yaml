@@ -1,0 +1,7 @@
+﻿services:
+  studentplanner:
+    image: studentplanner
+    build:
+      context: .
+      dockerfile: StudentPlanner/Dockerfile
+
