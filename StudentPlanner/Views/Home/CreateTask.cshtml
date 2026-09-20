@@ -1,0 +1,21 @@
+@model TaskItem
+
+<form asp-action="CreateTask" method="post">
+    <label>Tittel:</label>
+    <input asp-for="Title" /> 
+    
+    <label>Emne:</label>
+    <input asp-for="Emne" />
+    
+    <label>Frist:</label>
+    <input asp-for="DueDate" /> 
+    
+    <label>Prioritet:</label>
+    <input asp-for="Priority" />
+    
+    <label>Kommentar:</label>
+    <input asp-for="Kommentar" />
+
+    <button type="submit">Opprett oppgave</button>
+</form>
+

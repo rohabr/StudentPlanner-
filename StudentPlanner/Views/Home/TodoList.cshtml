@@ -1,13 +1,26 @@
-﻿@{
+﻿@model List<TaskItem>
+@{
     ViewData["Title"] = "Todo List";
 }
 <h1>@ViewData["Title"]</h1>
 
 
 <div class="planner1">
-<ol>
-    <li> Lever IS202 Innlevering </li>
-    <li> Les kapittel 5 i objektorientert programmering </li>
-    <li> Test deg selv kapittel 9 IS200 </li>
-</ol>
+    @foreach (var task in Model)
+    {
+        <div class="task-card">
+            <p> Oppgave: @task.Title</p> 
+            <p>Emne: @task.Emne</p>
+            <p>Ferdig: @task.IsDone</p>
+            <p>Frist: @task.DueDate</p>
+            <p>Prioritet: @task.Priority</p>
+            <p>Kommentar: @task.Kommentar</p>
+            
+            <form asp-action="Delete" asp-route-id="@task.Id" method="post">
+                <button type="submit">Slett Oppgave</button>
+            </form>
+            
+        </div>
+      
+    }
 </div>
