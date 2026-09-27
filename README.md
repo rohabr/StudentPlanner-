@@ -19,27 +19,29 @@ Webapplikasjonen kjøres i en Docker container. Docker brukes til å pakke webap
 
 Slik henger komponentene sammen illustrert med et diagram:
 ┌───────────────┐
-│ Bruker        │
+│    Bruker     │
 └───────┬───────┘
         ↓
 ┌───────────────┐
-│ Nettleser     │
+│   Nettleser   │
 └───────┬───────┘
         ↓
 ┌───────────────────────────────────────────────┐
-│ Docker miljø                                  │
+│                  Docker-miljø                 │
 │                                               │
-│ ┌───────────────────────────────────────────┐ │
-│ │ ASP.NET Core MVC Webapplikasjon           │ │
-│ └─────────────────── ───────────────────────┘ │
-│                                               │
-│                                               │
-└─────────────↓─────────────↓───────────────────
-                                          
-       ┌───────────────┐ ┌───────────────┐     
-       │ Database/     │ │		           │
-       │   planlagt    │ │ Kart/API      │     
-       └───────────────┘ └───────────────┘     
+│  ┌─────────────────────────────────────────┐  │
+│  │        ASP.NET Core MVC                 │  │
+│  │           Webapplikasjon                │  │
+│  └─────────────────────────────────────────┘  │
+│                    │                          │
+└────────────────────┼──────────────────────────┘
+                     │
+             ┌───────┴────────┐
+             ↓                ↓
+┌───────────────────┐  ┌───────────────────┐
+│ Database          │  │     Kart/API      │
+│ (planlagt)        │  │ (ekstern tjeneste)│
+└───────────────────┘  └───────────────────┘  
 
 
 # KI bruk i prosjektet
