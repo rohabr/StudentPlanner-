@@ -18,30 +18,35 @@ Systemet består av en bruker som kommuniserer med webapplikasjonen gjennom en n
 Webapplikasjonen kjøres i en Docker container. Docker brukes til å pakke webapplikasjonen og dens avhengigheter inn i et isolert miljø, dette gjør at webapplikasjonen kan kjøres på samme måte på ulike maskiner og miljøer (dockerdocs, u.d.). I prosjektet bruker vi Docker til å kjøre webapplikasjonen i containere, og ASP.NET core webapplikasjonen bygges ved hjelp av en Dockerfile. Vi bruker .NET aspire til å starte og administrere webapplikasjonen, dette gjør det enklere å kjøre hele løsningen lokalt.
 
 Slik henger komponentene sammen illustrert med et diagram:
-┌───────────────┐
-│    Bruker     │
-└───────┬───────┘
-        ↓
-┌───────────────┐
-│   Nettleser   │
-└───────┬───────┘
-        ↓
-┌───────────────────────────────────────────────┐
-│                  Docker-miljø                 │
-│                                               │
-│  ┌─────────────────────────────────────────┐  │
-│  │        ASP.NET Core MVC                 │  │
-│  │           Webapplikasjon                │  │
-│  └─────────────────────────────────────────┘  │
-│                    │                          │
-└────────────────────┼──────────────────────────┘
-                     │
-             ┌───────┴────────┐
-             ↓                ↓
-┌───────────────────┐  ┌───────────────────┐
-│ Database          │  │     Kart/API      │
-│ (planlagt)        │  │ (ekstern tjeneste)│
-└───────────────────┘  └───────────────────┘  
+### Systemarkitektur
+
+Slik henger komponentene sammen:
+
+```mermaid
+flowchart TD
+    Bruker["Bruker"] --> Nettleser["Nettleser"]
+
+    subgraph Docker["Docker-miljø"]
+        App["ASP.NET Core MVC-webapplikasjon"]
+
+        subgraph MVC["MVC"]
+            Controller["Controller"]
+            Model["Model"]
+            View["View"]
+        end
+
+        Database["Database (planlagt)"]
+
+        App --> Controller
+        Controller --> Model
+        Controller --> View
+        Model -.-> Database
+    end
+
+    Nettleser --> App
+
+    App --> KartAPI["Kart / API"]
+``` 
 
 
 # KI bruk i prosjektet
