@@ -44,10 +44,14 @@ Slik henger komponentene sammen illustrert med et diagram:
 
 # KI bruk i prosjektet
 I prosjektet har vi brukt KI som et hjelpemiddel gjennom ulike deler av utviklingsprosessen. Verktøyene vi har tatt i bruk er blant annet ChatGPT, Copilot og andre ulike KI modeller. Disse har hovedsakelig blitt brukt til å forklare tekniske konsepter innenfor programmering, forstå feilmeldinger, strukturere tekster og videreutvikle ideer til systemets funksjonalitet. Vi har selv vurdert, tilpasset og testet forslagene fra KI før implementasjon. KI har dermed blitt brukt som et støtteverktøy for læring, ideutvikling og problemløsning. 
-Noen prompts vi har brukt aktivt gjennom innleveringen er:
+### Noen prompts vi har brukt aktivt gjennom innleveringen er:
+
 •	Kan du hjelpe oss med å forstå denne feilmeldingen?
+
 •	Kan du forklare denne kodeblokken?
+
 •	Hva er MVC komponenter?
+
 •	Hvorfor vil ikke webapplikasjonen kjøre?
 
 
