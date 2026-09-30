@@ -51,3 +51,20 @@ ol{
   background-color: #ffffff;
   
 }
+
+#prioritet{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  
+}
+
+#createTask1{
+  width: 50%;
+  height: 100%;
+  border: 5px solid plum;
+  margin: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+

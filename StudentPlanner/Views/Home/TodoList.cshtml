@@ -20,6 +20,11 @@
                 <button type="submit">Slett Oppgave</button>
             </form>
             
+            
+            <form asp-action="ToggleComplete" asp-route-id="@task.Id" method="post">
+                <button type="submit"> @(task.IsDone ? "Angre" : "Fullført")</button>
+            </form>
+            
         </div>
       
     }

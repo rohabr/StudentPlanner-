@@ -10,9 +10,9 @@ public class HomeController : Controller
     
     private static List<TaskItem> task = new List<TaskItem>()
     {
-        new TaskItem {Id = 1, Title =  "Innlevering 1", Emne = "IS202", IsDone = false, DueDate = DateTime.Now.AddDays(15), Priority = "Middels"},
-        new TaskItem {Id = 2,Title = "Mappe innlevering 1", Emne = "IS201", IsDone = false, DueDate = DateTime.Now.AddDays(30), Priority = "Høy"},
-        new TaskItem {Id = 3,Title = "Sprint review", Emne = "IS200", IsDone = true, DueDate = DateTime.Now.AddDays(7), Priority = "Lav"}
+        new TaskItem {Id = 1, Title =  "Innlevering 1", Emne = "IS202", IsDone = false, DueDate = DateTime.Now.AddDays(15), Priority = PriorityLevel.Høy},
+        new TaskItem {Id = 2,Title = "Mappe innlevering 1", Emne = "IS201", IsDone = false, DueDate = DateTime.Now.AddDays(30), Priority = PriorityLevel.Lav},
+        new TaskItem {Id = 3,Title = "Sprint review", Emne = "IS200", IsDone = true, DueDate = DateTime.Now.AddDays(7), Priority = PriorityLevel.Middels}
     };
 
     public static int GetNextId(List<TaskItem> task)
@@ -42,6 +42,16 @@ public class HomeController : Controller
         }
         return RedirectToAction("TodoList");
 
+    }
+
+    public IActionResult ToggleComplete(int id)
+    {
+        var taskItemToComplete = task.Find(t => t.Id == id);
+        if (taskItemToComplete != null)
+        {
+            taskItemToComplete.IsDone = !taskItemToComplete.IsDone;
+        }
+        return RedirectToAction("TodoList");
     }
 
     [HttpGet]

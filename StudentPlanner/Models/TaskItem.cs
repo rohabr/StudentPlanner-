@@ -7,6 +7,6 @@ public class TaskItem
     public string Emne { get; set; } = "";
     public bool IsDone { get; set; } = false;
     public DateTime? DueDate { get; set; }
-    public string Priority { get; set; } = "";
+    public PriorityLevel Priority { get; set; } = PriorityLevel.Lav;
     public string? Kommentar { get; set; }
 }

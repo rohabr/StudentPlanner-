@@ -1,6 +1,6 @@
 @model TaskItem
 
-<form asp-action="CreateTask" method="post">
+<form asp-action="CreateTask" method="post" style="align-content: flex-start" id="createTask1">
     <label>Tittel:</label>
     <input asp-for="Title" /> 
     
@@ -11,11 +11,18 @@
     <input asp-for="DueDate" /> 
     
     <label>Prioritet:</label>
-    <input asp-for="Priority" />
+    <div class="mb-2">
+    <select asp-for="Priority" id="prioritet" class="form-control">
+        <option value="" selected disabled hidden>-- Velg prioritet --</option>
+        <option value="Lav">Lav</option>
+        <option value="Middels">Middels</option>
+        <option value="Høy">Høy</option>
+    </select> 
     
     <label>Kommentar:</label>
     <input asp-for="Kommentar" />
 
     <button type="submit">Opprett oppgave</button>
+    </div>
 </form>
 
