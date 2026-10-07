@@ -1,0 +1,12 @@
+namespace StudentPlanner.Models;
+
+public class Entities
+{
+    public int Id { get; set; }
+    public string Title { get; set; } = "";
+    public string Emne { get; set; } = "";
+    public bool IsDone { get; set; } = false;
+    public DateTime? DueDate { get; set; }
+    public PriorityLevel Priority { get; set; } = PriorityLevel.Lav;
+    public string? Kommentar { get; set; }
+}
