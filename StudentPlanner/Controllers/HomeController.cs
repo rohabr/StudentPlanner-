@@ -1,26 +1,20 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing.Matching;
+using StudentPlanner.DataAccess;
 using StudentPlanner.Models;
 
 namespace StudentPlanner.Controllers;
 
 public class HomeController : Controller
 {
-    
-    private static List<TaskItem> task = new List<TaskItem>()
-    {
-        new TaskItem {Id = 1, Title =  "Innlevering 1", Emne = "IS202", IsDone = false, DueDate = DateTime.Now.AddDays(15), Priority = PriorityLevel.Høy},
-        new TaskItem {Id = 2,Title = "Mappe innlevering 1", Emne = "IS201", IsDone = false, DueDate = DateTime.Now.AddDays(30), Priority = PriorityLevel.Lav},
-        new TaskItem {Id = 3,Title = "Sprint review", Emne = "IS200", IsDone = true, DueDate = DateTime.Now.AddDays(7), Priority = PriorityLevel.Middels}
-    };
+    private readonly ApplicationDbContext _db;
 
-    public static int GetNextId(List<TaskItem> task)
+    public HomeController(ApplicationDbContext db)
     {
-        if (task.Count == 0) return 1;
-        return task.Max(t => t.Id) + 1;
+        _db = db;
     }
-                                                                                                               
+    
                                                                                                                                              
     public IActionResult Index()
     {
@@ -29,16 +23,18 @@ public class HomeController : Controller
 
     public IActionResult TodoList()
     {
-        return View(task);                                                                                                                           
+        return View(_db.Tasks.ToList());                                                                                                                           
     }
 
     public IActionResult Delete(int id)
     {
-        var taskItemToRemove = task.Find(x => x.Id == id);
-       
+        var taskItemToRemove = _db.Tasks.Find(id);
+        
         if (taskItemToRemove != null)
         {
-            task.Remove(taskItemToRemove);
+            _db.Tasks.Remove(taskItemToRemove);
+            _db.SaveChanges();
+
         }
         return RedirectToAction("TodoList");
 
@@ -46,10 +42,12 @@ public class HomeController : Controller
 
     public IActionResult ToggleComplete(int id)
     {
-        var taskItemToComplete = task.Find(t => t.Id == id);
+        var taskItemToComplete = _db.Tasks.Find(id);
         if (taskItemToComplete != null)
         {
             taskItemToComplete.IsDone = !taskItemToComplete.IsDone;
+            _db.SaveChanges();
+
         }
         return RedirectToAction("TodoList");
     }
@@ -63,10 +61,12 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult CreateTask(TaskItem taskItem)
     {
-        taskItem.Id = GetNextId(task);        
-        task.Add(taskItem);
+        _db.Add(taskItem);
+        _db.SaveChanges();
+        
         return RedirectToAction("TodoList");
     }
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

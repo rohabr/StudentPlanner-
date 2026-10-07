@@ -1,0 +1,37 @@
+﻿services:
+  studentplanner:
+    image: studentplanner
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=mariadb;Port=3306;Database=studentplannerdb;User=root;Password=Hello123-
+
+    depends_on:
+      - mariadb
+
+    networks:
+      - appnet
+
+  mariadb:
+    image: mariadb:latest
+    environment:
+      - MARIADB_ROOT_PASSWORD=Hello123-
+      - MARIADB_DATABASE=studentplannerdb
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadbdata:/var/lib/mysql
+
+    networks:
+      - appnet
+
+volumes:
+  mariadbdata:
+
+networks:
+  appnet:
