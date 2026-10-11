@@ -2,30 +2,69 @@
 @{
     ViewData["Title"] = "Todo List";
 }
-<h1>@ViewData["Title"]</h1>
 
-
-<div class="planner1">
-    @foreach (var task in Model)
-    {
-        <div class="task-card">
-            <p> Oppgave: @task.Title</p> 
-            <p>Emne: @task.Emne</p>
-            <p>Ferdig: @task.IsDone</p>
-            <p>Frist: @task.DueDate</p>
-            <p>Prioritet: @task.Priority</p>
-            <p>Kommentar: @task.Kommentar</p>
-            
-            <form asp-action="Delete" asp-route-id="@task.Id" method="post">
-                <button type="submit">Slett Oppgave</button>
-            </form>
-            
-            
-            <form asp-action="ToggleComplete" asp-route-id="@task.Id" method="post">
-                <button type="submit"> @(task.IsDone ? "Angre" : "Fullført")</button>
-            </form>
-            
-        </div>
-      
-    }
+<div class="sidehode">
+    <h1>@ViewData["Title"]</h1>
+    <a asp-action="CreateTask" class="knapp">Ny oppgave</a>
 </div>
+
+@if (!Model.Any())
+{
+    <p class="tom">Ingen oppgaver ennå. Trykk «Ny oppgave» for å legge til den første.</p>
+}
+else
+{
+    <ul class="oppgaveliste">
+        @foreach (var task in Model)
+        {
+            <li class="oppgave @(task.IsDone ? "er-ferdig" : "")">
+
+                <div class="prio-flik" data-priority="@task.Priority">
+                    <span class="visuelt-skjult">Prioritet: </span>@task.Priority
+                </div>
+
+                <div class="oppgave-innhold">
+                    <h2 class="oppgave-tittel">@task.Title</h2>
+
+                    <ul class="oppgave-info">
+                        <li class="merke">@task.Emne</li>
+                        <li class="merke">
+                            @if (task.DueDate.HasValue)
+                            {
+                                <text>Frist: </text>
+                                <time datetime="@task.DueDate.Value.ToString("yyyy-MM-dd")">@task.DueDate.Value.ToString("dd.MM.yyyy")</time>
+                            }
+                            else
+                            {
+                                <text>Ingen frist</text>
+                            }
+                        </li>
+                        <li class="merke @(task.IsDone ? "merke-ferdig" : "")">
+                            @(task.IsDone ? "Fullført" : "Ikke fullført")
+                        </li>
+                    </ul>
+
+                    @if (!string.IsNullOrWhiteSpace(task.Kommentar))
+                    {
+                        <p class="oppgave-kommentar">@task.Kommentar</p>
+                    }
+                </div>
+
+                <div class="oppgave-handlinger">
+                    <form asp-action="ToggleComplete" asp-route-id="@task.Id" method="post">
+                        <button type="submit" class="knapp">
+                            @(task.IsDone ? "Angre fullført" : "Marker som fullført")<span class="visuelt-skjult">: @task.Title</span>
+                        </button>
+                    </form>
+
+                    <form asp-action="Delete" asp-route-id="@task.Id" method="post">
+                        <button type="submit" class="knapp knapp-slett">
+                            Slett<span class="visuelt-skjult">: @task.Title</span>
+                        </button>
+                    </form>
+                </div>
+
+            </li>
+        }
+    </ul>
+}

@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Matching;
 using StudentPlanner.DataAccess;
 using StudentPlanner.Models;
 
@@ -26,6 +25,7 @@ public class HomeController : Controller
         return View(_db.Tasks.ToList());                                                                                                                           
     }
 
+    [HttpPost]
     public IActionResult Delete(int id)
     {
         var taskItemToRemove = _db.Tasks.Find(id);
@@ -40,6 +40,7 @@ public class HomeController : Controller
 
     }
 
+    [HttpPost]
     public IActionResult ToggleComplete(int id)
     {
         var taskItemToComplete = _db.Tasks.Find(id);

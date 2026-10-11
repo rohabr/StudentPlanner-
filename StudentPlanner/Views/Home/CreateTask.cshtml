@@ -1,28 +1,42 @@
 @model TaskItem
+@{
+    ViewData["Title"] = "Opprett oppgave";
+}
 
-<form asp-action="CreateTask" method="post" style="align-content: flex-start" id="createTask1">
-    <label>Tittel:</label>
-    <input asp-for="Title" /> 
-    
-    <label>Emne:</label>
-    <input asp-for="Emne" />
-    
-    <label>Frist:</label>
-    <input asp-for="DueDate" /> 
-    
-    <label>Prioritet:</label>
-    <div class="mb-2">
-    <select asp-for="Priority" id="prioritet" class="form-control">
-        <option value="" selected disabled hidden>-- Velg prioritet --</option>
-        <option value="Lav">Lav</option>
-        <option value="Middels">Middels</option>
-        <option value="Høy">Høy</option>
-    </select> 
-    
-    <label>Kommentar:</label>
-    <input asp-for="Kommentar" />
+<h1>@ViewData["Title"]</h1>
 
-    <button type="submit">Opprett oppgave</button>
+<form asp-action="CreateTask" method="post" class="skjema">
+
+    <div class="felt">
+        <label asp-for="Title">Tittel (påkrevd)</label>
+        <input asp-for="Title" required />
     </div>
-</form>
 
+    <div class="felt">
+        <label asp-for="Emne">Emne</label>
+        <input asp-for="Emne" />
+    </div>
+
+    <div class="felt">
+        <label asp-for="DueDate">Frist</label>
+        <input asp-for="DueDate" />
+    </div>
+
+    <div class="felt">
+        <label asp-for="Priority">Prioritet (påkrevd)</label>
+        <select asp-for="Priority" required>
+            <option value="" selected disabled hidden>Velg prioritet</option>
+            <option value="Høy">Høy</option>
+            <option value="Middels">Middels</option>
+            <option value="Lav">Lav</option>
+        </select>
+    </div>
+
+    <div class="felt">
+        <label asp-for="Kommentar">Kommentar</label>
+        <input asp-for="Kommentar" />
+    </div>
+
+    <button type="submit" class="knapp">Opprett oppgave</button>
+
+</form>
