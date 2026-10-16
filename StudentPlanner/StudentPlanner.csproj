@@ -28,6 +28,9 @@
       <None Update="compose.yaml">
         <DependentUpon>Dockerfile</DependentUpon>
       </None>
+      <None Update=".env">
+        <DependentUpon>Dockerfile</DependentUpon>
+      </None>
     </ItemGroup>
 
 </Project>

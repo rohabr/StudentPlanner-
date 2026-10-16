@@ -13,17 +13,17 @@ public sealed class Test1
             new TaskItem
             {
                 Id = 1, Title = "Innlevering 1", Emne = "IS202", IsDone = false, DueDate = DateTime.Now.AddDays(15),
-                Priority = "Middels"
+                Priority = PriorityLevel.Høy
             },
             new TaskItem
             {
                 Id = 2, Title = "Innlevering 2", Emne = "IS200", IsDone = false, DueDate = DateTime.Now.AddDays(10),
-                Kommentar = "Kommentar", Priority = "Lav"
+                Kommentar = "Kommentar", Priority = PriorityLevel.Lav
             },
             new TaskItem
             {
                 Id = 5, Title = "Innlevering 2", Emne = "IS200", IsDone = false, DueDate = DateTime.Now.AddDays(10),
-                Kommentar = "Kommentar", Priority = "Lav"
+                Kommentar = "Kommentar", Priority = PriorityLevel.Middels
             }
         };
 

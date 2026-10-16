@@ -12,7 +12,7 @@ using StudentPlanner.DataAccess;
 namespace StudentPlanner.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261007185153_InitialCreate")]
+    [Migration("20261016192335_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
