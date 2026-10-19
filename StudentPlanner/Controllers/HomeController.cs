@@ -2,6 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using StudentPlanner.DataAccess;
 using StudentPlanner.Models;
+ using TaskStatus = StudentPlanner.Models.TaskCategory;
+
 
 namespace StudentPlanner.Controllers;
 
@@ -73,5 +75,38 @@ public class HomeController : Controller
     public IActionResult Error()
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+
+    public static TaskCategory GetTaskStatus(TaskItem task, DateTime now)
+    {
+        if (task.IsDone)
+        {
+            return TaskCategory.Completed;
+        }
+
+        if (task.DueDate == null)
+        {
+            return TaskCategory.NoDueDate;
+        }
+
+        DateTime dueDate = task.DueDate.Value.Date;
+
+        if (dueDate < now.Date)
+        {
+            return TaskCategory.OverDue;
+        }
+        
+        if (dueDate == now.Date)
+        {
+            return TaskCategory.DueToday;
+        }
+        
+        if (dueDate < now.Date.AddDays(7))
+        {
+            return TaskCategory.DueSoon;
+        }
+
+        return TaskCategory.Upcoming;
+        
     }
 }
