@@ -14,28 +14,25 @@ html {
 
 
 /* ==========================================================
-   Student Planner: lyseblå og fersken, lekent og tilgjengelig
+   Student Planner: rosa og lavendel, lekent og tilgjengelig
 
-   Slik bruker du filen:
-   1. Åpne wwwroot/css/site.css
-   2. Slett dine egne .planner1- og .task-card-regler
-   3. Behold det som allerede står der fra malen (footer osv.)
-   4. Lim inn alt under her, nederst i filen
-
-   Alle farger er sjekket mot WCAG AA (minst 4,5:1 for tekst
-   og 3:1 for rammer). Tallene står ved hver farge.
+   Alle farger styres fra :root-blokken under. Vil du endre
+   utseendet senere, er det nok å bytte verdiene der.
+   Kontrasttallene er mot tekstfargen (WCAG AA krever 4,5:1).
    ========================================================== */
 
 :root {
-  --bakgrunn: #F2F8FD;        /* sidebakgrunn, tekst har 14,3:1 */
-  --flate: #FFFFFF;           /* kort og skjema, tekst har 15,3:1 */
-  --tekst: #14263A;           /* mørk marineblå */
-  --tekst-dempet: #3F566D;    /* sekundærtekst, 7,6:1 på hvitt */
-  --kant: #14263A;            /* alle rammer og skygger */
-  --bla: #CFE8FA;            /* tekst har 12,1:1 */
-  --bla-sterk: #8CC7F0;      /* tekst har 8,4:1 */
-  --fersken: #FFE3D1;        /* tekst har 12,5:1 */
-  --fersken-sterk: #FFB38F;  /* tekst har 8,8:1 */
+  --bakgrunn: #FFF4F8;        /* sidebakgrunn, 15,0:1 */
+  --flate: #FFFFFF;           /* kort og skjema, 16,1:1 */
+  --tekst: #2E1A2E;           /* mørk plomme */
+  --tekst-dempet: #5B4259;    /* sekundærtekst, 8,9:1 på hvitt */
+  --kant: #2E1A2E;            /* alle rammer og skygger */
+
+  --rosa: #FFD6E6;            /* 12,3:1 */
+  --rosa-sterk: #FF9FC4;      /* 8,4:1 */
+  --lilla: #E6D9FA;           /* 12,0:1 */
+  --lilla-sterk: #BFA5F0;     /* 7,6:1 */
+  --gronn-lys: #E8F7EC;       /* fullførte kort, 14,5:1 */
 
   --kant-tykkelse: 3px;
   --radius: 1rem;
@@ -84,7 +81,7 @@ body {
   padding: .75rem 1.25rem;
   font-weight: 700;
   color: var(--tekst);
-  background: var(--fersken-sterk);
+  background: var(--rosa-sterk);
   border: var(--kant-tykkelse) solid var(--kant);
   border-radius: .75rem;
 }
@@ -96,7 +93,7 @@ body {
 /* ---------- Navigasjon ---------- */
 
 .navbar {
-  background-color: var(--bla) !important;
+  background-color: var(--rosa) !important;
   border-bottom: var(--kant-tykkelse) solid var(--kant) !important;
   box-shadow: none !important;
 }
@@ -112,7 +109,7 @@ body {
 }
 
 .navbar .nav-link:hover {
-  background: var(--fersken);
+  background: var(--lilla);
 }
 
 /* ---------- Overskrifter ---------- */
@@ -124,7 +121,7 @@ h1 {
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 800;
   line-height: 1.3;
-  background: var(--fersken);
+  background: var(--lilla);
   border: var(--kant-tykkelse) solid var(--kant);
   border-radius: var(--radius);
   box-shadow: 4px 4px 0 var(--kant);
@@ -152,7 +149,7 @@ h1 {
   font-weight: 700;
   color: var(--tekst);
   text-decoration: none;
-  background: var(--bla-sterk);
+  background: var(--rosa-sterk);
   border: var(--kant-tykkelse) solid var(--kant);
   border-radius: .75rem;
   box-shadow: 3px 3px 0 var(--kant);
@@ -172,7 +169,7 @@ h1 {
 }
 
 .knapp-slett {
-  background: var(--fersken-sterk);
+  background: var(--lilla-sterk);
 }
 
 /* ---------- Oppgaveliste: én rad per oppgave ---------- */
@@ -196,7 +193,7 @@ h1 {
 }
 
 .oppgave.er-ferdig {
-  background: var(--bla);
+  background: var(--gronn-lys);
 }
 
 /* Prioritet som egen flik til venstre. Ordet står i fliken,
@@ -214,15 +211,42 @@ h1 {
 }
 
 .prio-flik[data-priority="Høy"] {
-  background: var(--fersken-sterk);
+  background: var(--rosa-sterk);
 }
 
 .prio-flik[data-priority="Middels"] {
-  background: var(--fersken);
+  background: var(--rosa);
 }
 
 .prio-flik[data-priority="Lav"] {
-  background: var(--bla);
+  background: var(--lilla);
+}
+
+/* Statusetiketten. Verdiene er enum-navnene fra TaskCategory.
+   Rød = haster, gul = i dag, grønn = fullført.
+   Ordet står alltid i etiketten, så fargen ikke er eneste signal. */
+.merke[data-status="Completed"] {
+  background: #BFE8C8;   /* 12,0:1 */
+}
+
+.merke[data-status="OverDue"] {
+  background: #FF8585;   /* 6,9:1 */
+}
+
+.merke[data-status="DueSoon"] {
+  background: #FFB8B8;   /* 9,8:1 */
+}
+
+.merke[data-status="DueToday"] {
+  background: #FFE9A8;   /* 13,4:1 */
+}
+
+.merke[data-status="Upcoming"] {
+  background: var(--lilla);
+}
+
+.merke[data-status="NoDueDate"] {
+  background: #FFFFFF;
 }
 
 .oppgave-innhold {
@@ -258,7 +282,7 @@ h1 {
 }
 
 .merke-ferdig {
-  background: var(--bla-sterk);
+  background: var(--rosa-sterk);
 }
 
 .oppgave-kommentar {
@@ -281,7 +305,7 @@ h1 {
 .tom {
   padding: 1.5rem;
   font-weight: 600;
-  background: var(--fersken);
+  background: var(--lilla);
   border: var(--kant-tykkelse) dashed var(--kant);
   border-radius: var(--radius);
 }
