@@ -100,8 +100,8 @@ dotnet test
 
 - [x] **Phase 1:** Basic web app with a static task list
 - [x] **Phase 2:** C# logic (create, delete, complete tasks) and unit tests
-- [ ] **Phase 3:** Persistent storage with MariaDB and Entity Framework Core
-- [ ] **Phase 4:** Full Docker setup
+- [x] **Phase 3:** Persistent storage with MariaDB and Entity Framework Core
+- [x] **Phase 4:** Full Docker setup
 - [ ] **Phase 5:** Additional features (login, dashboard and more)
 - [ ] **Deployment**
 
